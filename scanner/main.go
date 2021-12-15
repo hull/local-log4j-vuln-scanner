@@ -159,7 +159,7 @@ func main() {
 			case ".jar", ".war", ".ear":
 				f, err := os.Open(path)
 				if err != nil {
-					_, _ = fmt.Fprintf(errFile, "can't open %s: %v", path, err)
+					_, _ = fmt.Fprintf(errFile, "can't open %s: %v\n", path, err)
 					return nil
 				}
 				defer func(f *os.File) {
@@ -167,11 +167,11 @@ func main() {
 				}(f)
 				sz, err := f.Seek(0, io.SeekEnd)
 				if err != nil {
-					_, _ = fmt.Fprintf(errFile, "can't seek in %s: %v", path, err)
+					_, _ = fmt.Fprintf(errFile, "can't seek in %s: %v\n", path, err)
 					return nil
 				}
 				if _, err := f.Seek(0, io.SeekEnd); err != nil {
-					_, _ = fmt.Fprintf(errFile, "can't seek in %s: %v", path, err)
+					_, _ = fmt.Fprintf(errFile, "can't seek in %s: %v\n", path, err)
 					return nil
 				}
 				handleJar(path, f, sz)
