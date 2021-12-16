@@ -117,7 +117,8 @@ func backupFile(src string, dest string) error {
 func PatchAndSwap(source, backupDir string) (err error) {
 	success := false
 
-	backupFileName := strings.ReplaceAll(strings.TrimLeft(source, "/"), "/", "_") +
+	sourceWithLeadingDotsAndSlashesTrimed := strings.TrimLeft(strings.TrimLeft(strings.TrimLeft(source, ".."), "."), "/")
+	backupFileName := strings.ReplaceAll(sourceWithLeadingDotsAndSlashesTrimed, "/", "_") +
 		"-" + strconv.FormatInt(time.Now().Unix(), 10) + ".tar"
 	backup := filepath.Join(backupDir, backupFileName)
 	dest := source + ".new"
